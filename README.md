@@ -10,8 +10,6 @@ Source: https://github.com/sherlock-audit/2024-06-boost-aa-wallet-judging/issues
 
 ### Root Cause
 
-[createBoost](https://github.com/sherlock-audit/2024-06-boost-aa-wallet/blob/d9f597776cc2d20fbb19ffb1f7731126cf3b6210/boost-protocol/packages/evm/contracts/BoostCore.sol#L106) is called to create a new boost. Each incentive is initialized by the call to [_makeIncentives](https://github.com/sherlock-audit/2024-06-boost-aa-wallet/blob/d9f597776cc2d20fbb19ffb1f7731126cf3b6210/boost-protocol/packages/evm/contracts/BoostCore.sol#L128). Within `_makeIncentives` the initializer is called for each incentive. The [initializer](https://github.com/sherlock-audit/2024-06-boost-aa-wallet/blob/d9f597776cc2d20fbb19ffb1f7731126cf3b6210/boost-protocol/packages/evm/contracts/incentives/ERC20Incentive.sol#L36C1-L53C6) function within each incentive contract sets the owner as msg.sender which would be the `BoostCore` contract.
-
 ### Internal pre-conditions
 
 1. Boost is created using the out of the box incentive contract as one of the incentives including: ERC20Incentive, CGDAIncentive, ERC20VariableIncentive, and ERC1155Incentive
